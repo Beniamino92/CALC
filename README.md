@@ -61,7 +61,7 @@ for (ii in 1:Q) {
 <img src="https://github.com/Beniamino92/sparseVARHSMM/blob/main/figures/postpred_training.png" width="700" heigth="100"/> 
 </p>
 
-```
+```r
 # - PPI and Magnitude
 PPI_a = numeric(Q)
 PPI_phi = numeric(Q)
