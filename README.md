@@ -58,7 +58,7 @@ for (ii in 1:Q) {
 ```
 
 ```
-# PPI and Magnitude
+# - PPI and Magnitude
 PPI_a = numeric(Q)
 PPI_phi = numeric(Q)
 for (jj in 1:Q) {
@@ -68,7 +68,7 @@ for (jj in 1:Q) {
 ```
 
 ``` r 
-# Posterior Predictive 
+# - Posterior Predictive 
 
 par(mfrow = c(2, 2))
 par(mai=rep(0.4, 4))
