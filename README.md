@@ -12,7 +12,7 @@ This software allows for the following four Bayesian modeling option
   
 ## Example 
 
-We provide a snapshot of `tutorial.Rmd`, which contains a tutorial for using our software in R
+We provide a snapshot of `tutorial.R`, which contains a tutorial for using our software in R
 
 ```r
 # stan model
@@ -57,6 +57,10 @@ for (ii in 1:Q) {
 }
 ```
 
+<p align="center">
+<img src="https://github.com/Beniamino92/sparseVARHSMM/blob/main/figures/postpred_training.png" width="700" heigth="100"/> 
+</p>
+
 ```
 # - PPI and Magnitude
 PPI_a = numeric(Q)
@@ -66,6 +70,10 @@ for (jj in 1:Q) {
   PPI_phi[jj] = sum(theta_phi_sims[, jj] != 0)/N_MCMC
 }
 ```
+
+<p align="center">
+<img src="https://github.com/Beniamino92/sparseVARHSMM/blob/main/figures/postpred_training.png" width="700" heigth="100"/> 
+</p>
 
 ``` r 
 # - Posterior Predictive 
@@ -99,4 +107,6 @@ for (sbj in sbj_plots) {
           col = scales::alpha(c_mid_highlight, 0.5), border = NA)
 }
 ```
-
+<p align="center">
+<img src="https://github.com/Beniamino92/sparseVARHSMM/blob/main/figures/postpred_training.png" width="700" heigth="100"/> 
+</p>
