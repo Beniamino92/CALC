@@ -176,7 +176,6 @@ fit_sparseRAR <- sampling(object = model,
                           init = init_fun)
 print(fit_sparseRAR, pars = c("theta_a", "theta_phi"))
 
-load("PAPER_illustrative_example.RData")
 
 # extract output
 parms <- rstan::extract(fit_sparseRAR) 
