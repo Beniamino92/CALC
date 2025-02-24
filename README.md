@@ -58,7 +58,7 @@ for (ii in 1:Q) {
 ```
 
 <p align="center">
-<img src="https://github.com/Beniamino92/sparseVARHSMM/blob/main/figures/postpred_training.png" width="700" heigth="100"/> 
+<img src="https://github.com/Beniamino92/sparseVARHSMM/blob/main/figures/traceplots.png" width="700" heigth="100"/> 
 </p>
 
 ```r
@@ -72,7 +72,7 @@ for (jj in 1:Q) {
 ```
 
 <p align="center">
-<img src="https://github.com/Beniamino92/sparseVARHSMM/blob/main/figures/postpred_training.png" width="700" heigth="100"/> 
+<img src="https://github.com/Beniamino92/sparseVARHSMM/blob/main/figures/PPI_magnitude.png" width="700" heigth="100"/> 
 </p>
 
 ``` r 
@@ -108,5 +108,5 @@ for (sbj in sbj_plots) {
 }
 ```
 <p align="center">
-<img src="https://github.com/Beniamino92/sparseVARHSMM/blob/main/figures/postpred_training.png" width="700" heigth="100"/> 
+<img src="https://github.com/Beniamino92/sparseVARHSMM/blob/main/figures/post_pred_subjects.png" width="700" heigth="100"/> 
 </p>
