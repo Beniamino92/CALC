@@ -1,6 +1,12 @@
 my_dir <- "/Users/beniamino/Desktop_New/Research/My_Papers/Methodological/DSS_2025+/Untitled/CALC/"
 setwd(my_dir)
 
+c_light = "gray95"
+c_light_highlight = "gray90"
+c_mid = "gray85"
+c_mid_highlight = "gray80"
+c_dark = "gray75"
+
 library("farff")
 library("rstan")
 library("bayesplot")
@@ -170,6 +176,8 @@ fit_sparseRAR <- sampling(object = model,
                           init = init_fun)
 print(fit_sparseRAR, pars = c("theta_a", "theta_phi"))
 
+load("PAPER_illustrative_example.RData")
+
 # extract output
 parms <- rstan::extract(fit_sparseRAR) 
 eta_a_sims <- parms$eta_a
@@ -208,8 +216,6 @@ traceplot(fit_sparseRAR,
 traceplot(fit_sparseRAR, 
           pars = c("lp__"))
 
-# stan diagnostic messages: 
-check_all_diagnostics(fit_sparseRAR)
 
 # ---- plot posterior predictive
 par(mfrow = c(2, 2))
@@ -310,7 +316,6 @@ x0s <- which(indicator_phi == 1) - 0.4
 x1s <- which(indicator_phi == 1) + 0.4
 y0s = eta_phi[which(indicator_phi == 1) ]
 segments(x0 = x0s, x1 = x1s, y0 = y0s, col = "blue", lwd = 3)
-dev.off()
 
 
 # --------- scatter plot (true vs estimated) for each subject
@@ -326,8 +331,6 @@ for (nn in 1:N_sbj) {
 
 
 # plot 
-#path_plot = paste(getwd(), "/plots/scatterplot_subjects_ampl_phase.pdf", sep = "")
-#pdf(file = path_plot, width = 10, height = 6)
 par(mfrow = c(1, 2))
 plot(a_all, amplitude_est, 
      xlab = "True", ylab = "Estimate", 
@@ -339,10 +342,8 @@ plot(phi_all, phase_est,
      ylab = "Estimate", main = "Phase", 
      pch = 20, col = "blue", cex = 1.1)
 abline(coef = c(0,1))
-#dev.off()
 
-path_plot = paste(getwd(), "/plots/hist_parameters.pdf", sep = "")
-pdf(file = path_plot, width = 8, height = 6)
+# - 
 par(mfrow = c(2, 2))
 par(mai=rep(0.4, 4))
 hist(parms$m, col = "green2", freq = F, breaks = 20, 
@@ -356,7 +357,6 @@ hist(parms$beta,  col = "green2", freq = F, xlim = c(2, 14),
 abline(v = theta$beta, col = "red", lty = "dotted", lwd = 3)
 hist(parms$sigma, col = "green2", freq = F, main = expression(sigma))
 abline(v = 0.5, col = "red", lty = "dotted", lwd = 3)
-dev.off()
 
 
 # estimate subject specific parameters
