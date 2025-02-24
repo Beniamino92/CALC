@@ -14,8 +14,7 @@ This software allows for the following four Bayesian modeling option
 
 We provide a snapshot of `tutorial.Rmd`, which contains a tutorial for using our software in R
 
-* Run RAPGP sampler
-  ```R
+```r
 # stan model
 model <- stan_model(file = "stan/CALC_l1ball.stan")
 
@@ -45,8 +44,59 @@ fit_sparseRAR <- sampling(object = model,
                           iter = N_warmup + N_MCMC,
                           warmup = N_warmup,
                           init = init_fun)
-  ```
-<p align="center">
-<img src="https://github.com/Beniamino92/BayesRPAGP/blob/main/plots/example.png" width="500" heigth="240"/> 
-</p>
+```
+
+```r
+# - Representative Traceplots
+
+par(mfrow = c(4, 4))
+par(mai=rep(0.4, 4))
+for (ii in 1:Q) {
+  plot(theta_a_sims[, ii], type = "l", xlab = "Iterations", col = "goldenrod3", 
+       main = bquote(eta[.(paste(" a,", ii))]), cex.main = 1.5)
+}
+```
+
+```
+# PPI and Magnitude
+PPI_a = numeric(Q)
+PPI_phi = numeric(Q)
+for (jj in 1:Q) {
+  PPI_a[jj] = sum(theta_a_sims[, jj] != 0)/N_MCMC
+  PPI_phi[jj] = sum(theta_phi_sims[, jj] != 0)/N_MCMC
+}
+```
+
+``` r 
+# Posterior Predictive 
+
+par(mfrow = c(2, 2))
+par(mai=rep(0.4, 4))
+for (sbj in sbj_plots) {
+  N = T_all[sbj]
+  y_hat = getPosteriorPredictive_covariates(parms, sbj, T_all, R, n_draws = 100)
+  plot(1:N, obs_all[sbj, 1:T_all[sbj]],  
+       ylab = "y", xlab = "", 
+       xlim = c(1, N), cex.lab = 1.1, 
+       ylim = c(0, 7),
+       cex = 0.6,
+       main = paste("Subject ", sbj, sep = ''))
+  
+  points(1:N, obs_all[sbj, 1:T_all[sbj]],
+         cex = 0.6, col = "blue")
+  points(1:N, obs_all[sbj, 1:T_all[sbj]],
+         pch = 20, cex = 0.7, col = "lightblue")
+  
+  probs <- seq(from=0.1, to=0.9, by=0.1)
+  cred <- sapply(1:N, function(t) quantile(y_hat[, t], probs = probs))
+  polygon(c(1:N, rev(1:N)), c(cred[1,], rev(cred[9,])),
+          col = scales::alpha(c_light, 0.5), border = NA)
+  polygon(c(1:N, rev(1:N)), c(cred[2,], rev(cred[8,])),
+          col = scales::alpha(c_light_highlight, 0.5), border = NA)
+  polygon(c(1:N, rev(1:N)), c(cred[3,], rev(cred[7,])),
+          col = scales::alpha(c_mid, 0.5), border = NA)
+  polygon(c(1:N, rev(1:N)), c(cred[4,], rev(cred[6,])),
+          col = scales::alpha(c_mid_highlight, 0.5), border = NA)
+}
+```
 
